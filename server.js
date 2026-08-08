@@ -28,13 +28,16 @@ app.post('/api/tasks', (req, res) => {
 });
 
 app.get('/api/tasks', (req, res) => {
-  const { assignee, status } = req.query;
+  const { assignee, status, dueDate } = req.query;
   let result = tasks;
   if (assignee) {
     result = result.filter((task) => task.assignee === assignee);
   }
   if (status) {
     result = result.filter((task) => task.status === status);
+  }
+  if (dueDate) {
+    result = result.filter((task) => task.dueDate === dueDate);
   }
   res.json(result);
 });

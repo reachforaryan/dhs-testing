@@ -60,6 +60,19 @@ test('GET /api/tasks filters by assignee and status', async () => {
   assert.deepStrictEqual(await noMatch.json(), []);
 });
 
+test('GET /api/tasks filters by dueDate', async () => {
+  await createTask({ title: 'Due today', dueDate: '2026-08-08' });
+  await createTask({ title: 'Due later', dueDate: '2026-09-01' });
+
+  const byDueDate = await fetch(`${baseUrl}/api/tasks?dueDate=2026-08-08`);
+  const dueTodayTasks = await byDueDate.json();
+  assert.ok(dueTodayTasks.every((t) => t.dueDate === '2026-08-08'));
+  assert.ok(dueTodayTasks.length >= 1);
+
+  const noMatch = await fetch(`${baseUrl}/api/tasks?dueDate=2099-01-01`);
+  assert.deepStrictEqual(await noMatch.json(), []);
+});
+
 // User Story 3 - Move a Task Through Its Workflow
 
 test('PATCH /api/tasks/:id/status moves a task directly from To-Do to Done', async () => {

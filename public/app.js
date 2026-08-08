@@ -4,6 +4,7 @@ const assigneeInput = document.getElementById('assignee-input');
 const dueDateInput = document.getElementById('due-date-input');
 
 const assigneeFilter = document.getElementById('assignee-filter');
+const dueDateFilter = document.getElementById('due-date-filter');
 const statusFilter = document.getElementById('status-filter');
 const clearFiltersButton = document.getElementById('clear-filters');
 
@@ -14,6 +15,7 @@ const STATUSES = ['To-Do', 'In Progress', 'Done'];
 async function loadTasks() {
   const params = new URLSearchParams();
   if (assigneeFilter.value) params.set('assignee', assigneeFilter.value);
+  if (dueDateFilter.value) params.set('dueDate', dueDateFilter.value);
   if (statusFilter.value) params.set('status', statusFilter.value);
 
   const response = await fetch(`/api/tasks?${params.toString()}`);
@@ -84,9 +86,11 @@ createForm.addEventListener('submit', async (event) => {
 });
 
 assigneeFilter.addEventListener('input', loadTasks);
+dueDateFilter.addEventListener('change', loadTasks);
 statusFilter.addEventListener('change', loadTasks);
 clearFiltersButton.addEventListener('click', () => {
   assigneeFilter.value = '';
+  dueDateFilter.value = '';
   statusFilter.value = '';
   loadTasks();
 });
