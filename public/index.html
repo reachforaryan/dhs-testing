@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TaskFlow</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>TaskFlow</h1>
+
+  <form id="create-form">
+    <input type="text" id="title-input" placeholder="Task title (required)" required />
+    <input type="text" id="assignee-input" placeholder="Assignee" />
+    <input type="date" id="due-date-input" />
+    <button type="submit">Add Task</button>
+  </form>
+
+  <div id="filters">
+    <input type="text" id="assignee-filter" placeholder="Filter by assignee" />
+    <select id="status-filter">
+      <option value="">All statuses</option>
+      <option value="To-Do">To-Do</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Done">Done</option>
+    </select>
+    <button type="button" id="clear-filters">Clear filters</button>
+  </div>
+
+  <ul id="task-list"></ul>
+
+  <script src="app.js"></script>
+</body>
+</html>
